@@ -1,0 +1,14 @@
+# Fichier de test
+# Les lignes de commentaires commencent par #
+procedure principale()
+    j = 0;
+    i = 1;
+    pour (; i < 8;)
+        j = j + i;
+        i = i + 1;
+    finpour
+    ecrire("bonjour !,i+2, "blabla");
+    lide(i);
+    lire(ij);
+finproc
+# Commentaire Final
