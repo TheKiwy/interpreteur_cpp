@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 #include "Symbole.h"
@@ -20,6 +21,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual ~Noeud() {} // Présence d'un destructeur virtuel conseillée dans les classes abstraites
+    virtual void traduitEnAda(ostream& f, int indentation) const =0;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +33,7 @@ class NoeudSeqInst : public Noeud {
     ~NoeudSeqInst() {}       // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute chaque instruction de la séquence
     void ajoute(Noeud* instruction) override;  // Ajoute une instruction à la séquence
-
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
   private:
     vector<Noeud *> m_instructions; // pour stocker les instructions de la séquence
 };
@@ -44,7 +46,7 @@ class NoeudAffectation : public Noeud {
      NoeudAffectation(Noeud* variable, Noeud* expression); // construit une affectation
     ~NoeudAffectation() {}   // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute (évalue) l'expression et affecte sa valeur à la variable
-
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
   private:
     Noeud* m_variable;
     Noeud* m_expression;
@@ -59,7 +61,7 @@ class NoeudOperateurBinaire : public Noeud {
     // Construit une opération binaire : operandeGauche operateur OperandeDroit
    ~NoeudOperateurBinaire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer() override;   // Exécute (évalue) l'opération binaire)
-
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
   private:
     Symbole m_operateur;
     Noeud*  m_operandeGauche;
@@ -91,6 +93,7 @@ class NoeudInstSiRiche : public Noeud {
     int executer() override; // Vérifie pour chaque instruction si la condition est vérifiée et qu'aucune autre n'a été exécutée avant
     void ajouterCondition(Noeud* condition);
     void ajouterSequence(Noeud* sequence);
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
 
   private:
     
@@ -106,7 +109,7 @@ class NoeudInstTantQue : public Noeud {
      // Construit une "instruction tantQue" avec sa condition et sa séquence d'instruction
    ~NoeudInstTantQue() {}         // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute l'instruction tantQue : la condition est vraie on exécute la séquence
-
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
   private:
     
     Noeud* m_condition;
@@ -121,7 +124,7 @@ class NoeudInstRepeter : public Noeud {
      // Construit une "instruction repeter" avec sa condition et sa séquence d'instruction
    ~NoeudInstRepeter() {}         // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute l'instruction repeter: séquence exécutée une fois puis tant que la condition est fausse on exécute la séquence à nouveau
-
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
       private:
     
     Noeud* m_condition;
@@ -132,14 +135,15 @@ class NoeudInstRepeter : public Noeud {
 class NoeudInstPour : public Noeud {
 // Classe pour représenter un noeud "instruction pour"
 //  et ses 4 fils : 2 affectation, 1 condition et 1 séquence d'instructions
-  public:
+public:
     NoeudInstPour(Noeud* condition, Noeud* sequence);
      // Construit une "instruction repeter" avec sa condition et sa séquence d'instruction
    ~NoeudInstPour() {}         // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute l'instruction repeter: séquence exécutée une fois puis tant que la condition est fausse on exécute la séquence à nouveau
     void setAffectationInit(Noeud* affectationInit);
     void setAffectationBoucle(Noeud* affectationBoucle);
-      private:
+    void traduitEnAda(ofstream & f, unsigned int indentation) const;
+private:
     
     Noeud* m_condition;
     Noeud* m_sequence;
@@ -157,6 +161,7 @@ class NoeudInstEcrire : public Noeud {
        ~NoeudInstEcrire() {}         // A cause du destructeur virtuel de la classe Noeud
         int executer() override; // Exécute l'instruction ecrire: affiche les valeurs
         void ajouterExpression(Noeud* expression); // Ajouter une expression à la liste
+        void traduitEnAda(ofstream & f, unsigned int indentation) const;
     private:
         vector<Noeud*> m_expressions;
 };
@@ -171,6 +176,7 @@ class NoeudInstLire: public Noeud {
        ~NoeudInstLire() {}         // A cause du destructeur virtuel de la classe Noeud
         int executer() override; // Exécute l'instruction ecrire: affiche les valeurs
         void ajouterVariable(Noeud* variable); // Ajouter une variable à la liste
+        void traduitEnAda(ofstream & f, unsigned int indentation) const;
     private:
         vector<Noeud*> m_variables;
 };

@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=tp05
+PROJECTNAME=interpreteur_cpp
 
 # Active Configuration
 DEFAULTCONF=Debug
