@@ -1,0 +1,16 @@
+# Test du Tant Que
+# Resultat Attendu :
+
+procedure principale()
+
+    iterateur = 1;
+    nb = 0;
+
+    ecrire("Entrez un nb à multiplier : ");
+    lire(nb);
+    tantque (iterateur <= 10)
+        ecrire(iterateur, " x ", nb, " = ", iterateur * nb);
+        iterateur = iterateur + 1;
+    fintantque
+
+finproc
