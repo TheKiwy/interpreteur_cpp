@@ -152,7 +152,7 @@ void NoeudInstSiRiche::traduitEnAda(ofstream & f, unsigned int indentation) cons
     m_conditions[0]->traduitEnAda(f, 0);
     f << " then " << endl;
     m_sequences[0]->traduitEnAda(f, indentation + 1);
-    for (int i = 1; i < m_sequences.size(); i++){
+    for (int i = 1; i < m_conditions.size(); i++){
         f << setw(4 * indentation) << "" << "elsif ";
         m_conditions[i]->traduitEnAda(f, 0);
         f << " then " << endl;
@@ -160,9 +160,9 @@ void NoeudInstSiRiche::traduitEnAda(ofstream & f, unsigned int indentation) cons
     }
     if (m_sequences.size() > m_conditions.size()) {
         f << setw(4 * indentation) << "" << "else" << endl;
-        f << m_sequences[m_sequences.size() - 1];
+        m_sequences[m_sequences.size() - 1]->traduitEnAda(f, indentation + 1);
     }
-    f << "end if";
+    f << setw(4 * indentation) << "" << "end if";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -270,6 +270,7 @@ int NoeudInstEcrire::executer() {
             cout << noeud->executer();
         }
     }
+    cout << endl;
     
     return 0; // La valeur renvoyée ne représente rien !
 }
@@ -282,10 +283,9 @@ void NoeudInstEcrire::traduitEnAda(ofstream & f, unsigned int indentation) const
     for (int i = 0; i < m_expressions.size(); i++) {
         f << setw(4 * indentation) << "" << "Put(";
         m_expressions[i]->traduitEnAda(f, 0);
-        f << ")";
-        if (i < m_expressions.size() - 1)
-            f << ";" << endl;
+        f << ");" << endl;
     }
+    f << setw(4 * indentation) << "" << "New_Line(1)";
 }
 
 ////////////////////////////////////////////////////////////////////////////////

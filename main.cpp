@@ -50,6 +50,9 @@ int main(int argc, char* argv[]) {
             if (nomFich.at(indNom) == '.')
                 pointFound = true;
          } while (indNom > 0 && !pointFound);
+         
+         if (!pointFound)
+             indNom = nomFich.size();
         
         // on crée le nouveau fichier (ou on l'écrase)
         
@@ -65,7 +68,7 @@ int main(int argc, char* argv[]) {
         unsigned int indSymbole = 0;
         while (indSymbole < interpreteur.getTable().getTaille()) {
             SymboleValue symbole = interpreteur.getTable()[indSymbole];
-            if (!((typeid(symbole) == typeid(SymboleValue) &&  symbole == "<CHAINE>")) && symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
+            if (symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
                 fichierAda << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
             indSymbole++;
         }
