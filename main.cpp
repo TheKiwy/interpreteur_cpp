@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 #include "Interpreteur.h"
 #include "Exceptions.h"
@@ -37,6 +38,44 @@ int main(int argc, char* argv[]) {
         // On exécute le programme si l'arbre n'est pas vide
         // Et on vérifie qu'il a fonctionné en regardant comment il a modifié la table des symboles
         cout << endl << "================ Table des symboles apres exécution : " << interpreteur.getTable();
+        
+        // Réalisation du fichier .adb correspondant à la transcription du code en Ada
+        
+        // on cherche le dernier point du nom de fichier pour remplacer l'extension (on ajoute juste l'extension si le fichier d'origine n'en a pas)
+        
+        unsigned int indNom = nomFich.size();
+        bool pointFound = false;
+        do {
+            indNom--;
+            if (nomFich.at(indNom) == '.')
+                pointFound = true;
+         } while (indNom > 0 && !pointFound);
+        
+        // on crée le nouveau fichier (ou on l'écrase)
+        
+        string nomProcedure = nomFich.substr(0, indNom); 
+        string nomFicAda = (nomProcedure + ".adb");
+        ofstream fichierAda(nomFicAda.c_str());
+        
+        if (interpreteur.isTextAda()) {
+            fichierAda << "with Ada.Text_IO, Ada.Integer_Text_IO;" << endl << "use Ada.Text_IO, Ada.Integer_Text_IO;" << endl << endl;
+        }
+        
+        fichierAda << "procedure " + nomProcedure + " is" << endl;
+        unsigned int indSymbole = 0;
+        while (indSymbole < interpreteur.getTable().getTaille()) {
+            SymboleValue symbole = interpreteur.getTable()[indSymbole];
+            if (!((typeid(symbole) == typeid(SymboleValue) &&  symbole == "<CHAINE>")) && symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
+                fichierAda << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
+            indSymbole++;
+        }
+        fichierAda << "begin" << endl;
+        interpreteur.getArbre()->traduitEnAda(fichierAda, 1);
+        fichierAda << "end " + nomProcedure + ";";
+        
+        fichierAda.close();
+        
+        system(("gnatmake -gnatv -gnato " + nomFicAda).c_str());
     }
     
     return 0;

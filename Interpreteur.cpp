@@ -5,6 +5,7 @@ using namespace std;
 
 Interpreteur::Interpreteur(ifstream & fichier) :
 m_lecteur(fichier), m_table(), m_arbre(nullptr) {
+    m_textAda = false;
 }
 
 void Interpreteur::analyse() {
@@ -99,7 +100,8 @@ Noeud* Interpreteur::inst() {
         while (m_lecteur.getSymbole() != "<VARIABLE>" && m_lecteur.getSymbole() != "si"
             && m_lecteur.getSymbole() != "tantque" && m_lecteur.getSymbole() != "repeter"
             && m_lecteur.getSymbole() != "pour" && m_lecteur.getSymbole() != "ecrire"
-            && m_lecteur.getSymbole() != "lire") {
+            && m_lecteur.getSymbole() != "lire" && m_lecteur.getSymbole() != "<FINDEFICHIER>"
+            && m_lecteur.getSymbole() != "finproc") {
             m_lecteur.avancer();
         }
         
@@ -260,6 +262,8 @@ Noeud* Interpreteur::instEcrire() {
     NoeudInstEcrire* noeudEcrire = new NoeudInstEcrire();
     Noeud* valeur;
     
+    this->m_textAda = true;
+    
     testerEtAvancer("ecrire");
     testerEtAvancer("(");
     if (m_lecteur.getSymbole() == "<CHAINE>") {
@@ -289,6 +293,8 @@ Noeud* Interpreteur::instLire() {
 // <instLire>    ::= lire( <variable> {, <variable> })
     NoeudInstLire* noeudLire = new NoeudInstLire();
     Noeud* variable;
+    
+    this->m_textAda = true;
     
     testerEtAvancer("lire");
     testerEtAvancer("(");

@@ -83,13 +83,20 @@ int NoeudOperateurBinaire::executer() {
 
 void NoeudOperateurBinaire::traduitEnAda(ofstream & f, unsigned int indentation) const {
     m_operandeGauche->traduitEnAda(f, indentation);
-    switch (m_operateur.getChaine())
-            case "==" : f << " = ";
-            case "!=" : f << " /= ";
-            case "et" : f << " and ";
-            case "ou" : f << " or ";
-            case "non" : f << " not ";
-            default : f << " " << m_operateur.getChaine() << " ";
+    
+    if (m_operateur.getChaine() == "==")
+        f << " = ";
+    else if (m_operateur.getChaine() == "!=")
+        f << " /= ";
+    else if (m_operateur.getChaine() == "et")
+        f << " and ";
+    else if (m_operateur.getChaine() == "ou")
+        f << " or ";
+    else if (m_operateur.getChaine() == "non")
+        f << " not ";
+    else
+        f << " " << m_operateur.getChaine() << " ";
+    
     m_operandeDroit->traduitEnAda(f, 0);
 }
 
@@ -176,7 +183,7 @@ void NoeudInstTantQue::traduitEnAda(ofstream & f, unsigned int indentation) cons
    m_condition->traduitEnAda(f, 0);
    f << " loop" << endl;
    m_sequence->traduitEnAda(f, indentation + 1);
-   f << "end loop";
+   f << setw(4 * indentation) << "" << "end loop";
 }
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstRepeter
@@ -199,7 +206,7 @@ void NoeudInstRepeter::traduitEnAda(ofstream & f, unsigned int indentation) cons
    m_sequence->traduitEnAda(f, indentation + 1);
    f << setw(4 * (indentation + 1)) << "" << "exit when ";
    m_condition->traduitEnAda(f, 0);
-   f << ";" << endl << "end loop";
+   f << ";" << endl << setw(4 * indentation) << "" << "end loop";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -245,7 +252,7 @@ void NoeudInstPour::traduitEnAda(ofstream & f, unsigned int indentation) const {
         this->m_affectationBoucle->traduitEnAda(f, indentation + 1);
         f << ";" << endl;
     }
-    f << "end loop";
+    f << setw(4 * indentation) << "" << "end loop";
 }
 
 ////////////////////////////////////////////////////////////////////////////////

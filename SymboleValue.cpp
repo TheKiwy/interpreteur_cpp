@@ -17,6 +17,10 @@ int SymboleValue::executer() {
   return m_valeur;
 }
 
+void SymboleValue::traduitEnAda(ofstream & f, unsigned int indentation) const {
+  f << setw(4 * indentation)  << "" << this->getChaine();
+}
+
 ostream & operator<<(ostream & cout, const SymboleValue & symbole) {
   cout << (Symbole) symbole << "\t\t - Valeur=";
   if (symbole.m_defini) cout << symbole.m_valeur << " ";

@@ -17,11 +17,12 @@ public:
                                       //   la table des symboles (ts) et l'arbre abstrait (arbre) auront été construits
 	                                    // Sinon, une exception sera levée
 
-	inline const TableSymboles & getTable () const  { return m_table;    } // accesseur	
+	inline const TableSymboles & getTable () const  { return m_table; } // accesseur	
 	inline Noeud* getArbre () const { return m_arbre; }                    // accesseur
         inline int getNbErreurs() const { return m_nbErreurs; }                // accesseur
         inline void addException(string s) { this->m_exceptions.push_back(s); } // accesseur
         inline vector<string> getListeExceptions() { return m_exceptions; } // accesseur
+        inline bool isTextAda() const { return this->m_textAda; } // accesseur
 	
 private:
     Lecteur        m_lecteur;  // Le lecteur de symboles utilisé pour analyser le fichier
@@ -29,6 +30,7 @@ private:
     Noeud*         m_arbre;    // L'arbre abstrait
     vector<string> m_exceptions; // La liste des exceptions rencontrées lors de l'interprétation
     
+    bool           m_textAda; // Booleéen qui passe sur true si Ada nécessite le package Text_IO
     int            m_nbErreurs;// Le nombre d'erreurs rencontrées lors de l'interprétation
 
     // Implémentation de la grammaire

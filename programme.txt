@@ -7,8 +7,8 @@ procedure principale()
         j = j + i;
         i = i + 1;
     finpour
-    ecrire("bonjour !,i+2, "blabla");
-    lide(i);
-    lire(ij);
+    ecrire("bonjour !", i+2, "blabla");
+    lire(i);
+    lire(i, j);
 finproc
 # Commentaire Final
