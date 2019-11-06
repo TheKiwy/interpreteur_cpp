@@ -22,6 +22,12 @@ int main(int argc, char* argv[]) {
     
     if (interpreteur.getNbErreurs() != 0) {
         cout << endl << "================ Syntaxe Erronnée" << endl;
+         if (interpreteur.getNbErreurs() == 1 ){
+            cout << interpreteur.getNbErreurs() << " " << "Erreur" << endl;
+         } else {
+            cout << interpreteur.getNbErreurs() << " " << "Erreurs" << endl;
+         }
+        
         for (int i = 0; i < interpreteur.getListeExceptions().size(); i++) {
             cout << interpreteur.getListeExceptions()[i] << endl;
         }

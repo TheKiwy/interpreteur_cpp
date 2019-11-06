@@ -1,5 +1,6 @@
 # Test du Tant Que
 # Resultat Attendu :
+# Instruction repetee à chaque tour de boucle
 
 procedure principale()
 

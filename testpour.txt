@@ -1,0 +1,48 @@
+# Test du Pour
+# Resultat attendu à la fin du programme:
+# test1 = 10
+
+procedure principale()
+
+  ecrire("Entrez un nombre à multiplier : ");
+  lire (nb);
+
+  #Test "Pour" avec la forme Affectation, Expression, Affectation
+
+  ecrire("Test -Pour- avec la forme Affectation, Expression, Affectation : ");
+
+  pour (i = 0; i < 10 ; i = i + 1)
+    ecrire(nb, "x", i, " = ", nb * i);
+  finpour
+
+  #Test "Pour" avec la forme Expression, Affectation
+
+  ecrire("Test -Pour- avec la forme Expression, Affectation : ");
+
+  x = 0;
+
+  pour (; x < 10 ; x = x + 1)
+    ecrire(nb, "x", x, " = ", nb * x);
+  finpour
+
+  #Test "Pour" avec la forme Affectation, Expression
+
+  ecrire("Test -Pour- avec la forme Affectation, Expression : ");
+
+  pour (y = 0; y < 10 ;)
+    ecrire(nb, "x", y, " = ", nb * y);
+    y = y + 1;
+  finpour
+
+  #Test "Pour" avec la forme Expression
+
+  ecrire("Test -Pour- avec la forme Expression : ");
+
+  j = 0;
+
+  pour (; j < 10;)
+    ecrire(nb, "x", j, " = ", nb * j);
+    j = j + 1;
+  finpour
+
+finproc

@@ -1,0 +1,16 @@
+# Test du Repeter
+# Resultat attendu à la fin du programme:
+# test1 = 10
+
+procedure principale()
+
+  test1 = 0;
+
+  repeter
+    test1 = test1 + 1;        #Instruction repetee 10 fois
+    ecrire("Test1 après incrementation : ", test1);
+  jusqua (test1 == 10)
+
+  ecrire("Valeur de test1 finproc : ",test1);
+
+finproc
