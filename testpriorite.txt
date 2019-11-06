@@ -1,0 +1,18 @@
+# Test de la priorité des opérateurs
+# Resultat Attendu :
+
+procedure principale()
+
+    i = 12 + 5;
+
+    ecrire(1 + 8 * 7 - 2 * 4);
+    ecrire(3 + 2 * 8);
+    ecrire(8 / 2 * 5);
+    si (2 * 7 * 5 + 4 == 5 + 2 * 8 + 3 ou 7 != 5)
+        ecrire("2 * 7 * 5 + 4 = ",
+                2 * 7 * 5 + 4,
+                " comparé avec 5 + 2 * 8 + 3 = ",
+                5 + 2 * 8 + 3);
+    finsi
+
+finproc
