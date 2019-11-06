@@ -1,0 +1,72 @@
+# Test du Si Riche
+# Resultat Attendu :
+# test1 = 10
+# test2 = 15
+# test3 = 20
+# test4 = 25
+
+procedure principale()
+
+    # Test pour si simple
+
+    test1 = 0;
+    si (test1 == 0)
+        test1 = 10;
+    finsi
+
+    ecrire("Resultat Test 1 : ", test1);
+
+    # Test pour sinonsi
+
+    test2 = 10;
+    si (test2 == 0)
+        test2 = 150;
+    sinonsi (test2 == 10)
+        test2 = 15;
+    finsi
+
+    ecrire("Resultat Test 2 : ", test2);
+
+    # Test pour sinonsi, sinon (1)
+
+    test3 = 10;
+    si (test3 == 200)
+        test3 = 555;
+    sinonsi (test3 == 600)
+        test3 = 666;
+    sinon
+        test3 = 20;
+        ecrire("Resultat Test 1 : ", test1);
+    finsi
+
+    ecrire("Resultat Test 3 : ", test3);
+
+    # Test pour sinonsi, sinonsi, sinon (2)
+
+    test3 = 10;
+    si (test3 == 200)
+        test3 = 555;
+    sinonsi (test3 == 600)
+        test3 = 666;
+    sinonsi (test3 == 10)
+        test3 = 20;
+    sinonsi (test3 == (20/2))
+        test3 = 60;
+    sinon
+        test3 = 500;
+    finsi
+
+    ecrire("Resultat Test 3 : ", test3);
+
+    # Test pour sinon
+
+    test4 = 10;
+    si (test4 == 300)
+        test4 = 777;
+    sinon
+        test4 = 25;
+    finsi
+
+    ecrire("Resultat Test 4 : ", test4);
+
+finproc

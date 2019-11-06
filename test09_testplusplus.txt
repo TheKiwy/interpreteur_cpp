@@ -1,0 +1,12 @@
+# Test des opérateurs ++ et -- :
+# Resultat Attendu : 3 puis 2
+
+procedure principale()
+
+    i = 2;
+    i++;
+    ecrire(i);
+    i--;
+    ecrire(i);
+
+finproc
