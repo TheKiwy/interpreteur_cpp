@@ -8,7 +8,7 @@ RN
 RV NO_IO
 RV SPARK_05
 
-U programme%b		programme.adb		ffb8cf48 NE OO SU IL
+U testsiriche%b		testsiriche.adb		47f054ed NE OO SU IL
 W ada%s			ada.ads			ada.ali
 W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
@@ -24,7 +24,6 @@ D a-tiinio.ads		20180111085525 aa04e5d6 ada.text_io.integer_io%s
 D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
 D interfac.ads		20180111085525 5ab55268 interfaces%s
 D i-cstrea.ads		20180111085525 e53d8b8e interfaces.c_streams%s
-D programme.adb		20191106080430 81eef5b6 programme%b
 D system.ads		20180111085525 4635ec04 system%s
 D s-crtl.ads		20180111085525 0ebbdb71 system.crtl%s
 D s-exctab.ads		20180111085525 54135002 system.exception_table%s
@@ -38,19 +37,22 @@ D s-stoele.ads		20180111085525 2dc34a04 system.storage_elements%s
 D s-traent.ads		20180111085525 005bf670 system.traceback_entries%s
 D s-unstyp.ads		20180111085525 34867c83 system.unsigned_types%s
 D s-wchcon.ads		20180111085525 1b7d22d2 system.wch_con%s
+D testsiriche.adb	20191106090436 39a66e13 testsiriche%b
 X 1 ada.ads
-16K9*Ada 20e8 12|1r6 1r19 2r5 2r18
+16K9*Ada 20e8 25|1r6 1r19 2r5 2r18
 X 3 a-inteio.ads
-18K13*Integer_Text_IO[8|46] 12|1w23 2r22
+18K13*Integer_Text_IO[8|46] 25|1w23 2r22
 X 7 a-textio.ads
-49K13*Text_IO 471e16 12|1w10 2r9
-166U14*New_Line 12|17s5
-242U14*Put 12|14s5 16s5
+49K13*Text_IO 471e16 25|1w10 2r9
+166U14*New_Line 25|16s5 25s5 36s5 51s5 60s5
+242U14*Put 25|14s5 23s5 34s5 49s5 58s5
 X 8 a-tiinio.ads
-56U14*Get 12|18s5[3|18] 19s5[3|18] 20s5[3|18]
-66U14*Put 12|15s5[3|18]
-X 12 programme.adb
-4U11*programme 4b11 21l5 21t14
-5i5 i{integer} 9m5 10r11 11r18 12m9 12r14 15r9 18m9 19m9
-6i5 j{integer} 8m5 11m9 11r14 20m9
+66U14*Put 25|15s5[3|18] 24s5[3|18] 35s5[3|18] 50s5[3|18] 59s5[3|18]
+X 25 testsiriche.adb
+4U11*testsiriche 4b11 61l5 61t16
+5i5 test1{integer} 10m5 11r8 12m9 15r9
+6i5 test2{integer} 17m5 18r8 19m9 20r11 21m9 24r9
+7i5 test3{integer} 26m5 27r8 28m9 29r11 30m9 32m9 35r9 37m5 38r8 39m9 40r11
+. 41m9 42r11 43m9 44r11 45m9 47m9 50r9
+8i5 test4{integer} 52m5 53r8 54m9 56m9 59r9
 

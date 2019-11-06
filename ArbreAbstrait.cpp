@@ -202,7 +202,7 @@ int NoeudInstRepeter::executer() {
 }
 
 void NoeudInstRepeter::traduitEnAda(ofstream & f, unsigned int indentation) const {
-   f << setw(4 * indentation) << "" << "loop ";
+   f << setw(4 * indentation) << "" << "loop " << endl;
    m_sequence->traduitEnAda(f, indentation + 1);
    f << setw(4 * (indentation + 1)) << "" << "exit when ";
    m_condition->traduitEnAda(f, 0);
@@ -241,9 +241,11 @@ void NoeudInstPour::setAffectationBoucle(Noeud* affectationBoucle) {
 }
 
 void NoeudInstPour::traduitEnAda(ofstream & f, unsigned int indentation) const {
-    if (this->m_affectationInit != nullptr) // Si l'affectation d'initialisation est définie on l'exécute
+    if (this->m_affectationInit != nullptr) { // Si l'affectation d'initialisation est définie on l'exécute
         this->m_affectationInit->traduitEnAda(f, indentation);
-    
+        f << ";" << endl;
+    }    
+        
     f << setw(4 * indentation) << "" << "while ";
     m_condition->traduitEnAda(f, 0);
     f << " loop" << endl;

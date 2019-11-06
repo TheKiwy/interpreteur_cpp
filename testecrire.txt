@@ -8,7 +8,7 @@
 
 procedure principale()
 
-    ecrire("Bonjour, je suis un programme de test.");
+    ecride("Bonjour, je suis un programme de test.");
     ecrire("Comment allez-vous ? ", "Personnellement, je vais bien.");
 
     age = 47;
