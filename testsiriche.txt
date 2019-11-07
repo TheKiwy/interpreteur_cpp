@@ -35,7 +35,8 @@ procedure principale()
     sinonsi (test3 == 600)
         test3 = 666;
     sinon
-        test3 = 20;ecrire("Resultat Test 1 : ", test1);
+        test3 = 20;
+        ecrire("Resultat Test 1 : ", test1);
     finsi
 
     ecrire("Resultat Test 3 : ", test3);

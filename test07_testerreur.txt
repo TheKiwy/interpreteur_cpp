@@ -1,1 +1,24 @@
- 
+# Test Récuperation d'erreur
+# Résultat attendu :
+# Erreurs de syntaxe aux lignes 10, 15 et 21
+
+procedure principale()
+
+    x = 0;
+
+    ecrire("Entrez une variable de type entier :");
+    lrie(x); # lire est mal écrit
+    
+    y = 2;
+    g = 5;
+    
+    ecrire("On additionne deux variables : " y + g); # manque de virgule
+    
+    ecrire("Changer la valeur des deux variables précedentes : ");
+    lire(y, g);
+    
+    ecrire("Fin du programme") # manque de point virgule
+    ecrire("... ou non !");
+    ecrire("Vraie fin.");
+
+finproc

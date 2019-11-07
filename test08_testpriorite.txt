@@ -1,5 +1,9 @@
 # Test de la priorité des opérateurs
 # Resultat Attendu :
+# 49
+# 19
+# 20
+# 2 * 7 * 5 + 4 = 74 comparé avec 5 + 2 * 8 + 3 = 24
 
 procedure principale()
 

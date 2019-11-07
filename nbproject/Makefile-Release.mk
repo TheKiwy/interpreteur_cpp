@@ -52,8 +52,8 @@ TESTFILES= \
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/instLireTestRunner.o \
-	${TESTDIR}/testNoeudInstLire.o
+	${TESTDIR}/mainTestInterpreteurAnaLyse.o \
+	${TESTDIR}/testInterpreteurAnalyse.o
 
 # C Compiler Flags
 CFLAGS=
@@ -121,21 +121,21 @@ ${OBJECTDIR}/main.o: main.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/instLireTestRunner.o ${TESTDIR}/testNoeudInstLire.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/mainTestInterpreteurAnaLyse.o ${TESTDIR}/testInterpreteurAnalyse.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
 
 
-${TESTDIR}/instLireTestRunner.o: instLireTestRunner.cpp 
+${TESTDIR}/mainTestInterpreteurAnaLyse.o: mainTestInterpreteurAnaLyse.cpp 
 	${MKDIR} -p ${TESTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/instLireTestRunner.o instLireTestRunner.cpp
+	$(COMPILE.cc) -O2 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/mainTestInterpreteurAnaLyse.o mainTestInterpreteurAnaLyse.cpp
 
 
-${TESTDIR}/testNoeudInstLire.o: testNoeudInstLire.cpp 
+${TESTDIR}/testInterpreteurAnalyse.o: testInterpreteurAnalyse.cpp 
 	${MKDIR} -p ${TESTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/testNoeudInstLire.o testNoeudInstLire.cpp
+	$(COMPILE.cc) -O2 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/testInterpreteurAnalyse.o testInterpreteurAnalyse.cpp
 
 
 ${OBJECTDIR}/ArbreAbstrait_nomain.o: ${OBJECTDIR}/ArbreAbstrait.o ArbreAbstrait.cpp 

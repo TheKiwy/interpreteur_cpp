@@ -45,46 +45,68 @@ int main(int argc, char* argv[]) {
         // Et on vérifie qu'il a fonctionné en regardant comment il a modifié la table des symboles
         cout << endl << "================ Table des symboles apres exécution : " << interpreteur.getTable();
         
-        // Réalisation du fichier .adb correspondant à la transcription du code en Ada
         
-        // on cherche le dernier point du nom de fichier pour remplacer l'extension (on ajoute juste l'extension si le fichier d'origine n'en a pas)
+        string reponse;
         
-        unsigned int indNom = nomFich.size();
-        bool pointFound = false;
-        do {
-            indNom--;
-            if (nomFich.at(indNom) == '.')
-                pointFound = true;
-         } while (indNom > 0 && !pointFound);
-         
-         if (!pointFound)
-             indNom = nomFich.size();
+        cout << "Voulez-vous traduire, compiler et exécuter votre programme en Ada ? (oui / non) : ";
+        cin >> reponse;
         
-        // on crée le nouveau fichier (ou on l'écrase)
-        
-        string nomProcedure = nomFich.substr(0, indNom); 
-        string nomFicAda = (nomProcedure + ".adb");
-        ofstream fichierAda(nomFicAda.c_str());
-        
-        if (interpreteur.isTextAda()) {
-            fichierAda << "with Ada.Text_IO, Ada.Integer_Text_IO;" << endl << "use Ada.Text_IO, Ada.Integer_Text_IO;" << endl << endl;
+        if(reponse == "oui") {
+            // Réalisation du fichier .adb correspondant à la transcription du code en Ada
+
+            // on cherche le dernier point du nom de fichier pour remplacer l'extension (on ajoute juste l'extension si le fichier d'origine n'en a pas)
+
+            unsigned int indNom = nomFich.size();
+            bool pointFound = false;
+            do {
+                indNom--;
+                if (nomFich.at(indNom) == '.')
+                    pointFound = true;
+             } while (indNom > 0 && !pointFound);
+
+             if (!pointFound)
+                 indNom = nomFich.size();
+
+            // on crée le nouveau fichier (ou on l'écrase)
+            
+            system("mkdir ada");
+
+            string nomProcedure = nomFich.substr(0, indNom); 
+            string nomFicAda = (("ada/" + nomProcedure + "/" + nomProcedure + ".adb").c_str());
+            
+            system(("mkdir ada/" + nomProcedure).c_str());
+            
+            ofstream fichierAda(nomFicAda);
+
+            if (interpreteur.isTextAda()) {
+                fichierAda << "with Ada.Text_IO, Ada.Integer_Text_IO;" << endl << "use Ada.Text_IO, Ada.Integer_Text_IO;" << endl << endl;
+            }
+
+            fichierAda << "procedure " + nomProcedure + " is" << endl;
+            unsigned int indSymbole = 0;
+            while (indSymbole < interpreteur.getTable().getTaille()) {
+                SymboleValue symbole = interpreteur.getTable()[indSymbole];
+                if (symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
+                    fichierAda << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
+                indSymbole++;
+            }
+            fichierAda << "begin" << endl;
+            interpreteur.getArbre()->traduitEnAda(fichierAda, 1);
+            fichierAda << "end " + nomProcedure + ";";
+
+            fichierAda.close();
+
+            system(("gnatmake -gnatv -gnato " + nomFicAda).c_str());
+            
+            cout << endl << "Exécution en Ada :" << endl << endl;
+            
+            system(("rm " + nomProcedure + ".ali " + nomProcedure + ".o").c_str());
+            
+            system(("./" + nomProcedure).c_str());
+            
+        } else {
+            cout << "Merci !";
         }
-        
-        fichierAda << "procedure " + nomProcedure + " is" << endl;
-        unsigned int indSymbole = 0;
-        while (indSymbole < interpreteur.getTable().getTaille()) {
-            SymboleValue symbole = interpreteur.getTable()[indSymbole];
-            if (symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
-                fichierAda << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
-            indSymbole++;
-        }
-        fichierAda << "begin" << endl;
-        interpreteur.getArbre()->traduitEnAda(fichierAda, 1);
-        fichierAda << "end " + nomProcedure + ";";
-        
-        fichierAda.close();
-        
-        system(("gnatmake -gnatv -gnato " + nomFicAda).c_str());
     }
     
     return 0;

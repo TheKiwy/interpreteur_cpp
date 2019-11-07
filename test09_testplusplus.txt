@@ -5,8 +5,10 @@ procedure principale()
 
     i = 2;
     i++;
+    ecrire("On exécute i++");
     ecrire(i);
     i--;
+    ecrire("On exécute i--");
     ecrire(i);
 
 finproc
