@@ -96,13 +96,13 @@ int main(int argc, char* argv[]) {
 
             fichierAda.close();
 
-            system(("gnatmake -gnatv -gnato " + nomFicAda).c_str());
+            system(("gnatmake -gnatv -gnato " + nomFicAda + " -o ada/" + nomProcedure + "/" + nomProcedure).c_str());
             
             cout << endl << "Exécution en Ada :" << endl << endl;
             
             system(("rm " + nomProcedure + ".ali " + nomProcedure + ".o").c_str());
             
-            system(("./" + nomProcedure).c_str());
+            system(("ada/" + nomProcedure + "/" + nomProcedure).c_str());
             
         } else {
             cout << "Merci !";
