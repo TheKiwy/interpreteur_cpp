@@ -23,6 +23,7 @@ public:
         inline void addException(string s) { this->m_exceptions.push_back(s); } // accesseur
         inline vector<string> getListeExceptions() { return m_exceptions; } // accesseur
         inline bool isTextAda() const { return this->m_textAda; } // accesseur
+        void traduitEnAda(std::ofstream & f, std::string nomProc) const;
 	
 private:
     Lecteur        m_lecteur;  // Le lecteur de symboles utilisé pour analyser le fichier

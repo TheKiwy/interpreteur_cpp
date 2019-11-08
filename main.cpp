@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
         cout << "Voulez-vous traduire, compiler et exécuter votre programme en Ada ? (oui / non) : ";
         cin >> reponse;
         
-        if(reponse == "oui") {
+        if (reponse == "oui") {
             // Réalisation du fichier .adb correspondant à la transcription du code en Ada
 
             // on cherche le dernier point du nom de fichier pour remplacer l'extension (on ajoute juste l'extension si le fichier d'origine n'en a pas)
@@ -78,21 +78,7 @@ int main(int argc, char* argv[]) {
             
             ofstream fichierAda(nomFicAda);
 
-            if (interpreteur.isTextAda()) {
-                fichierAda << "with Ada.Text_IO, Ada.Integer_Text_IO;" << endl << "use Ada.Text_IO, Ada.Integer_Text_IO;" << endl << endl;
-            }
-
-            fichierAda << "procedure " + nomProcedure + " is" << endl;
-            unsigned int indSymbole = 0;
-            while (indSymbole < interpreteur.getTable().getTaille()) {
-                SymboleValue symbole = interpreteur.getTable()[indSymbole];
-                if (symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
-                    fichierAda << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
-                indSymbole++;
-            }
-            fichierAda << "begin" << endl;
-            interpreteur.getArbre()->traduitEnAda(fichierAda, 1);
-            fichierAda << "end " + nomProcedure + ";";
+            interpreteur.traduitEnAda(fichierAda, nomProcedure);
 
             fichierAda.close();
 

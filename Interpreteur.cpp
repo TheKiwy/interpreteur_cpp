@@ -8,6 +8,24 @@ m_lecteur(fichier), m_table(), m_arbre(nullptr) {
     m_textAda = false;
 }
 
+void Interpreteur::traduitEnAda(ofstream & f, string nomProc) const {
+    if (this->isTextAda()) {
+        f << "with Ada.Text_IO, Ada.Integer_Text_IO;" << endl << "use Ada.Text_IO, Ada.Integer_Text_IO;" << endl << endl;
+    }
+
+    f << "procedure " + nomProc + " is" << endl;
+    unsigned int indSymbole = 0;
+    while (indSymbole < this->getTable().getTaille()) {
+        SymboleValue symbole = this->getTable()[indSymbole];
+        if (symbole == "<VARIABLE>") // Si le symbole n'est pas une chaine
+            f << setw(4) << "" << symbole.getChaine() << " : integer;" << endl;
+        indSymbole++;
+    }
+    f << "begin" << endl;
+    this->getArbre()->traduitEnAda(f, 1);
+    f << "end " + nomProc + ";";
+}
+
 void Interpreteur::analyse() {
   m_arbre = programme(); // on lance l'analyse de la première règle
 }
